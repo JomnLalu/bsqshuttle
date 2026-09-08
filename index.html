@@ -460,7 +460,7 @@
 
 <main class="container">
     <header>
-        <div class="unofficial-badge">Unofficial Personal Project</div>
+        <div class="unofficial-badge">Unofficial Community Project</div>
         <h1>Binus Shuttle Schedule</h1>
         <p class="subtitle" id="route-subtitle">Route: BSQ ➔ Kijang ➔ Syahdan ➔ Anggrek</p>
         <div class="live-time" id="clock">Current Time: --:--</div>
@@ -490,7 +490,7 @@
     <section class="notes-section" id="notes-section" aria-label="Important Notes"></section>
 
     <footer class="site-footer">
-        <p>This is an independent, unofficial tool created by a student member. Not officially affiliated with Bina Nusantara. :)</p>
+        <p>This is an independent, unofficial tool created by a student/community member. Not officially affiliated with Bina Nusantara University.</p>
     </footer>
 </main>
 
@@ -743,9 +743,7 @@
     }
 
     function updateClock() {
-        const now = new Date();
-        const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        document.getElementById('clock').textContent = `Current Time: ${timeString}`;
+        document.getElementById('clock').textContent = `Current Time: ${getCurrentTimeString()}`;
     }
 
     function init() {
