@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f8fafc">
+    
+    <title>Binus Square Shuttle Schedule | BSQ Live Times</title>
+    <meta name="description" content="Live Binus Square (BSQ) shuttle bus schedule. Check real-time departure and arrival times for Kemanggisan (Anggrek, Syahdan, Kijang), Alam Sutera, and JWC/FX routes. An unofficial student side project.">
+    <meta name="keywords" content="Binus shuttle, BSQ shuttle, Binus Square schedule, Binus Anggrek bus, Binus Alam Sutera shuttle, JWC shuttle, Binus bus times">
+    <meta name="author" content="jomontolalu">
+    <meta name="robots" content="index, follow">
+    
+    <link rel="canonical" href="https://bsqshuttle.jomontolalu.com/">
+    
+    <meta property="og:title" content="Binus Square Shuttle Schedule - Live Updates">
+    <meta property="og:description" content="Check the latest Binus Square (BSQ) shuttle schedule for Kemanggisan, Alam Sutera, and JWC campuses in real-time. Unofficial side project.">
+    <meta property="og:url" content="https://bsqshuttle.jomontolalu.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Binus Shuttle Schedule">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Binus Square Shuttle Schedule | BSQ Live Times">
+    <meta name="twitter:description" content="Check the latest Binus Square (BSQ) shuttle schedule for Kemanggisan, Alam Sutera, and JWC campuses in real-time. Unofficial side project.">
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Binus Shuttle Schedule",
+      "url": "https://bsqshuttle.jomontolalu.com/",
+      "description": "Live Binus Square (BSQ) shuttle bus schedule for Kemanggisan, Alam Sutera, and JWC routes. Unofficial side project.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "jomontolalu"
+      }
+    }
+    </script>
+
+    <style>
+        :root {
+            --primary-bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent-color: #3b82f6;
+            --highlight-bg: #eff6ff;
+            --border-color: #e2e8f0;
+            --tag-bypass-bg: #fce7f3;
+            --tag-bypass-text: #db2777;
+            --tag-extra-bg: #fef08a;
+            --tag-extra-text: #854d0e;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-main);
+            line-height: 1.5;
+            margin: 0;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .unofficial-badge {
+            display: inline-block;
+            margin-bottom: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            background-color: #f1f5f9;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            letter-spacing: 0.025em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            margin: 0 0 0.5rem 0;
+            letter-spacing: -0.025em;
+            color: var(--text-main);
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.125rem;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .live-time {
+            display: inline-block;
+            margin-top: 1.25rem;
+            padding: 0.6rem 1.5rem;
+            background-color: var(--text-main);
+            color: white;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            letter-spacing: 0.025em;
+        }
+
+        .route-tabs {
+            display: flex;
+            background: #e2e8f0;
+            padding: 0.35rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            gap: 0.25rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 0.875rem 1rem;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-main);
+        }
+
+        .tab-btn.active {
+            background: var(--card-bg);
+            color: var(--text-main);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .status-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .status-card {
+            background: var(--card-bg);
+            padding: 1.75rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .status-card.next {
+            border-top: 5px solid var(--accent-color);
+            background-color: var(--highlight-bg);
+        }
+
+        .status-card.current {
+            border-top: 5px solid var(--text-muted);
+        }
+
+        .card-label {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            font-weight: 800;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+
+        .status-card.next .card-label {
+            color: var(--accent-color);
+        }
+
+        .card-time {
+            font-size: 2.75rem;
+            font-weight: 900;
+            line-height: 1;
+            color: var(--text-main);
+            letter-spacing: -0.025em;
+        }
+
+        .card-details {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-top: 0.25rem;
+        }
+
+        .filter-section {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .filter-section.hidden {
+            display: none;
+        }
+
+        .filter-label {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-right: 0.5rem;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1.25rem;
+            border: 2px solid var(--border-color);
+            border-radius: 999px;
+            background: var(--card-bg);
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 0.875rem;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--text-muted);
+            color: var(--text-main);
+        }
+
+        .filter-btn.active {
+            background: var(--text-main);
+            color: white;
+            border-color: var(--text-main);
+        }
+
+        .schedule-container {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            margin-bottom: 2.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .schedule-header, .schedule-row {
+            display: grid;
+            padding: 1.25rem 1.5rem;
+            align-items: center;
+        }
+
+        .grid-kemanggisan { grid-template-columns: 1.5fr 1fr 1fr 1fr 2fr; }
+        .grid-simple { grid-template-columns: 1.5fr 1.5fr 2fr; }
+
+        .schedule-header {
+            background-color: var(--primary-bg);
+            font-weight: 800;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .schedule-row {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .schedule-row:last-child {
+            border-bottom: none;
+        }
+
+        .schedule-row:hover {
+            background-color: var(--primary-bg);
+        }
+
+        .schedule-row.next-bus {
+            background-color: var(--highlight-bg);
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .time-main {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.025em;
+        }
+
+        .next-bus .time-main {
+            color: var(--accent-color);
+        }
+
+        .time-stop {
+            font-size: 1.125rem;
+            font-variant-numeric: tabular-nums;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .no-stop {
+            color: var(--text-muted);
+            opacity: 0.3;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            font-size: 0.8125rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-weight: 700;
+        }
+
+        .tag.base { background-color: #e2e8f0; color: #334155; }
+        .tag.bypass { background-color: var(--tag-bypass-bg); color: var(--tag-bypass-text); }
+        .tag.extra { background-color: var(--tag-extra-bg); color: var(--tag-extra-text); }
+
+        .notes-section {
+            background: var(--card-bg);
+            padding: 1.75rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .notes-section h3 {
+            margin-top: 0;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+        }
+
+        .notes-list {
+            margin: 0;
+            padding-left: 1.25rem;
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .notes-list li {
+            margin-bottom: 0.75rem;
+        }
+
+        footer.site-footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .empty-state {
+            padding: 4rem 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 1.125rem;
+        }
+
+        ::-webkit-scrollbar {
+            height: 8px;
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        @media (max-width: 768px) {
+            .status-cards {
+                grid-template-columns: 1fr;
+            }
+            .schedule-header {
+                display: none;
+            }
+            .schedule-row {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1.5rem;
+            }
+            .time-main {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                font-size: 2.75rem;
+                font-weight: 900;
+                margin-bottom: 0.5rem;
+                line-height: 1;
+            }
+            .time-main::before {
+                content: attr(data-label);
+                font-size: 0.875rem;
+                font-weight: 800;
+                color: var(--text-muted);
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+            .time-stop {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                font-size: 1.25rem;
+                font-weight: 700;
+                border-bottom: 1px solid var(--border-color);
+                padding-bottom: 0.875rem;
+            }
+            .time-stop:nth-last-of-type(2) {
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+            .time-stop::before {
+                content: attr(data-label);
+                font-size: 0.875rem;
+                font-weight: 700;
+                color: var(--text-muted);
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+            .tags {
+                margin-top: 0.75rem;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<main class="container">
+    <header>
+        <div class="unofficial-badge">Unofficial Personal Project</div>
+        <h1>Binus Shuttle Schedule</h1>
+        <p class="subtitle" id="route-subtitle">Route: BSQ ➔ Kijang ➔ Syahdan ➔ Anggrek</p>
+        <div class="live-time" id="clock">Current Time: --:--</div>
+    </header>
+
+    <nav class="route-tabs" aria-label="Route Selection">
+        <button class="tab-btn active" data-route="kemanggisan">Kemanggisan (Anggrek)</button>
+        <button class="tab-btn" data-route="alsut">Alam Sutera</button>
+        <button class="tab-btn" data-route="jwc">JWC & FX</button>
+    </nav>
+
+    <section class="status-cards" id="status-cards" aria-live="polite"></section>
+
+    <nav class="filter-section" id="filter-section" aria-label="Filter Options">
+        <span class="filter-label">Filter:</span>
+        <button class="filter-btn active" data-filter="All">All Routes</button>
+        <button class="filter-btn" data-filter="Regular">Regular Only</button>
+        <button class="filter-btn" data-filter="Bypass">Bypass Anggrek</button>
+        <button class="filter-btn" data-filter="2 Units">2 Units</button>
+    </nav>
+
+    <section class="schedule-container" aria-label="Schedule Grid">
+        <div class="schedule-header grid-kemanggisan" id="schedule-header"></div>
+        <div id="schedule-body"></div>
+    </section>
+
+    <section class="notes-section" id="notes-section" aria-label="Important Notes"></section>
+
+    <footer class="site-footer">
+        <p>This is an independent, unofficial tool created by a student member. Not officially affiliated with Bina Nusantara. :)</p>
+    </footer>
+</main>
+
+<script>
+    const routesData = {
+        kemanggisan: {
+            title: "Route: BSQ ➔ Kijang ➔ Syahdan ➔ Anggrek",
+            gridClass: "grid-kemanggisan",
+            hasFilters: true,
+            headers: ["Depart (BSQ)", "Kijang", "Syahdan", "Anggrek", "Information"],
+            notes: [
+                "Schedules may change or be canceled (e.g., during online classes).",
+                "If the bus is full, it may depart before the scheduled time.",
+                "If a shuttle is not operating, please inform Binus Square Estate Management.",
+                "2 Units means: 1 Regular Route unit and 1 Direct Bypass unit.",
+                "Shuttles to Mall Taman Anggrek available Saturdays (Starts Sep 12, 2026)."
+            ],
+            data: [
+                { bsq: "06:00", kijang: "06:10", syahdan: "06:20", dest: "06:30", info: "S1", tags: [] },
+                { bsq: "06:30", kijang: "06:40", syahdan: "06:50", dest: "07:00", info: "S2", tags: [] },
+                { bsq: "06:45", kijang: "--", syahdan: "--", dest: "07:15", info: "S4", tags: ["Bypass Anggrek"] },
+                { bsq: "06:45", kijang: "06:55", syahdan: "07:05", dest: "07:15", info: "S5", tags: ["2 Units"] },
+                { bsq: "07:00", kijang: "07:10", syahdan: "07:20", dest: "07:30", info: "S1", tags: [] },
+                { bsq: "08:20", kijang: "08:30", syahdan: "08:40", dest: "09:00", info: "S1", tags: [] },
+                { bsq: "08:30", kijang: "--", syahdan: "--", dest: "09:30", info: "S4", tags: ["Bypass Anggrek"] },
+                { bsq: "08:30", kijang: "08:40", syahdan: "08:55", dest: "09:05", info: "S5", tags: ["2 Units"] },
+                { bsq: "08:45", kijang: "08:55", syahdan: "09:05", dest: "09:10", info: "S2", tags: [] },
+                { bsq: "09:00", kijang: "09:10", syahdan: "09:20", dest: "09:30", info: "S3", tags: [] },
+                { bsq: "10:30", kijang: "10:40", syahdan: "10:50", dest: "11:00", info: "S3", tags: [] },
+                { bsq: "10:45", kijang: "10:55", syahdan: "11:05", dest: "11:15", info: "S5", tags: [] },
+                { bsq: "11:00", kijang: "11:10", syahdan: "11:20", dest: "11:30", info: "S4", tags: [] },
+                { bsq: "12:30", kijang: "12:40", syahdan: "12:50", dest: "13:10", info: "S1", tags: ["2 Units"] },
+                { bsq: "12:30", kijang: "--", syahdan: "--", dest: "13:05", info: "S5", tags: ["Bypass Anggrek"] },
+                { bsq: "12:45", kijang: "12:55", syahdan: "13:05", dest: "13:15", info: "S3", tags: [] },
+                { bsq: "13:00", kijang: "13:15", syahdan: "13:20", dest: "13:30", info: "S2", tags: [] },
+                { bsq: "14:30", kijang: "14:40", syahdan: "14:50", dest: "15:10", info: "S4", tags: [] },
+                { bsq: "14:45", kijang: "15:00", syahdan: "15:15", dest: "15:20", info: "S2", tags: [] },
+                { bsq: "15:00", kijang: "15:10", syahdan: "15:20", dest: "15:30", info: "S5", tags: [] },
+                { bsq: "16:15", kijang: "16:25", syahdan: "16:35", dest: "17:10", info: "S1", tags: [] },
+                { bsq: "16:30", kijang: "16:45", syahdan: "16:55", dest: "17:20", info: "S4", tags: [] },
+                { bsq: "16:45", kijang: "16:55", syahdan: "17:05", dest: "17:30", info: "S2", tags: [] },
+                { bsq: "17:00", kijang: "17:15", syahdan: "17:30", dest: "17:45", info: "S3", tags: [] },
+                { bsq: "17:15", kijang: "17:30", syahdan: "17:45", dest: "18:00", info: "S5", tags: [] },
+                { bsq: "18:50", kijang: "19:00", syahdan: "19:15", dest: "19:30", info: "S3", tags: [] }
+            ]
+        },
+        alsut: {
+            title: "Route: BSQ ➔ Alam Sutera (ASO)",
+            gridClass: "grid-simple",
+            hasFilters: false,
+            headers: ["Depart (BSQ)", "Arrive (Alsut-ASO)", "Information"],
+            notes: [
+                "Due to the long distance, there are only 3 departures daily.",
+                "Asterisk (*) tags mean the shuttle skips Binus ASO.",
+                "Taman Anggrek Shuttle starts Sep 12, 2026 (canceled during holidays/exams)."
+            ],
+            data: [
+                { bsq: "06:15", dest: "08:00", info: "(ELF) B 7993 SDA", tags: [] },
+                { bsq: "10:15", dest: "13:30", info: "(ELF) B 7993 SDA", tags: ["Skip ASO"] },
+                { bsq: "14:30", dest: "17:30", info: "(ELF) B 7993 SDA", tags: ["Skip ASO (Depart)"] }
+            ]
+        },
+        jwc: {
+            title: "Route: BSQ ➔ JWC & FX",
+            gridClass: "grid-simple",
+            hasFilters: false,
+            headers: ["Depart (BSQ)", "Arrive (JWC-FX)", "Information"],
+            notes: [
+                "If roads are congested or there are events (Protests, Football), the shuttle will not go to FX.",
+                "For FX pick-up points, please coordinate directly with the shuttle driver.",
+                "Taman Anggrek Shuttle starts Sep 12, 2026 (canceled during holidays/exams)."
+            ],
+            data: [
+                { bsq: "07:00", dest: "08:30", info: "(BUS) B 7289 IE", tags: [] },
+                { bsq: "11:00", dest: "13:00", info: "(BUS) B 7289 IE", tags: [] },
+                { bsq: "14:30", dest: "15:15", info: "(BUS) B 7289 IE", tags: [] },
+                { bsq: "16:00", dest: "17:15", info: "(BUS) B 7289 IE", tags: [] }
+            ]
+        }
+    };
+
+    let activeRoute = 'kemanggisan';
+    let currentFilter = 'All';
+
+    function getCurrentTimeString() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        return `${hours}:${minutes}`;
+    }
+
+    function getStatusBuses() {
+        const timeStr = getCurrentTimeString();
+        const route = routesData[activeRoute];
+        let currentBus = null;
+        let nextBus = null;
+
+        for (let i = 0; i < route.data.length; i++) {
+            if (route.data[i].bsq > timeStr) {
+                nextBus = route.data[i];
+                currentBus = i > 0 ? route.data[i - 1] : null;
+                break;
+            }
+        }
+        if (!nextBus && route.data.length > 0) {
+            currentBus = route.data[route.data.length - 1];
+        }
+
+        return { currentBus, nextBus, timeStr };
+    }
+
+    function renderStatusCards() {
+        const container = document.getElementById('status-cards');
+        const { currentBus, nextBus } = getStatusBuses();
+        const isKemanggisan = activeRoute === 'kemanggisan';
+
+        const createCardHTML = (bus, type, label) => {
+            if (!bus) return `<div class="status-card ${type}"><div class="card-label">${label}</div><div class="card-time">--:--</div><div class="card-details">No buses available</div></div>`;
+            
+            let details = bus.info;
+            if (isKemanggisan) {
+                const destType = bus.kijang === '--' ? 'Direct to Anggrek' : 'Regular Route';
+                details = `Bus ${bus.info.replace('S', '')} • ${destType}`;
+            }
+
+            return `
+                <div class="status-card ${type}">
+                    <div class="card-label">${label}</div>
+                    <div class="card-time">${bus.bsq}</div>
+                    <div class="card-details">${details}</div>
+                </div>
+            `;
+        };
+
+        container.innerHTML = `
+            ${createCardHTML(currentBus, 'current', 'Departed / Current')}
+            ${createCardHTML(nextBus, 'next', 'Next Departure')}
+        `;
+    }
+
+    function renderHeaders() {
+        const route = routesData[activeRoute];
+        const headerContainer = document.getElementById('schedule-header');
+        headerContainer.className = `schedule-header ${route.gridClass}`;
+        headerContainer.innerHTML = route.headers.map(h => `<div>${h}</div>`).join('');
+    }
+
+    function renderSchedule() {
+        const container = document.getElementById('schedule-body');
+        const route = routesData[activeRoute];
+        const { timeStr } = getStatusBuses();
+        
+        let filteredData = route.data;
+        
+        if (route.hasFilters) {
+            filteredData = route.data.filter(row => {
+                if (currentFilter === 'All') return true;
+                if (currentFilter === 'Regular') return row.tags.length === 0;
+                return row.tags.includes(currentFilter) || row.tags.some(t => t.includes(currentFilter));
+            });
+        }
+
+        if (filteredData.length === 0) {
+            container.innerHTML = `<div class="empty-state">No buses match the selected filter.</div>`;
+            return;
+        }
+
+        let nextBusHighlighted = false;
+
+        container.innerHTML = filteredData.map(row => {
+            let rowClass = `schedule-row ${route.gridClass}`;
+            
+            if (!nextBusHighlighted && row.bsq > timeStr) {
+                rowClass += " next-bus";
+                nextBusHighlighted = true;
+            }
+
+            const tagsHtml = row.tags.map(tag => {
+                const tagClass = tag.includes("Bypass") || tag.includes("Skip") ? "bypass" : "extra";
+                return `<span class="tag ${tagClass}">${tag}</span>`;
+            }).join('');
+
+            const infoTag = activeRoute === 'kemanggisan' 
+                ? `<span class="tag base">Bus ${row.info.replace('S', '')}</span>` 
+                : `<span class="tag base" style="font-size:0.75rem">${row.info}</span>`;
+
+            let colsHtml = `<div class="time-main" data-label="${route.headers[0]}">${row.bsq}</div>`;
+            
+            if (activeRoute === 'kemanggisan') {
+                colsHtml += `
+                    <div class="time-stop ${row.kijang === '--' ? 'no-stop' : ''}" data-label="Kijang">${row.kijang}</div>
+                    <div class="time-stop ${row.syahdan === '--' ? 'no-stop' : ''}" data-label="Syahdan">${row.syahdan}</div>
+                `;
+            }
+            
+            colsHtml += `
+                <div class="time-stop" data-label="${route.headers[route.headers.length-2]}">${row.dest}</div>
+                <div class="tags">${infoTag}${tagsHtml}</div>
+            `;
+
+            return `<div class="${rowClass}">${colsHtml}</div>`;
+        }).join('');
+    }
+
+    function renderNotes() {
+        const container = document.getElementById('notes-section');
+        const notes = routesData[activeRoute].notes;
+        
+        container.innerHTML = `
+            <h3>Important Rules & Notes</h3>
+            <ul class="notes-list">
+                ${notes.map(note => `<li>${note}</li>`).join('')}
+            </ul>
+        `;
+    }
+
+    function setupInteractions() {
+        const tabs = document.querySelectorAll('.tab-btn');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                tabs.forEach(t => t.classList.remove('active'));
+                e.target.classList.add('active');
+                
+                activeRoute = e.target.dataset.route;
+                document.getElementById('route-subtitle').textContent = routesData[activeRoute].title;
+                
+                const filterSection = document.getElementById('filter-section');
+                if (routesData[activeRoute].hasFilters) {
+                    filterSection.classList.remove('hidden');
+                } else {
+                    filterSection.classList.add('hidden');
+                }
+
+                renderHeaders();
+                renderStatusCards();
+                renderSchedule();
+                renderNotes();
+            });
+        });
+
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                currentFilter = e.target.dataset.filter;
+                renderSchedule();
+            });
+        });
+    }
+
+    function updateClock() {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        document.getElementById('clock').textContent = `Current Time: ${timeString}`;
+    }
+
+    function init() {
+        updateClock();
+        setupInteractions();
+        renderHeaders();
+        renderStatusCards();
+        renderSchedule();
+        renderNotes();
+        
+        setInterval(() => {
+            updateClock();
+            renderStatusCards();
+            renderSchedule();
+        }, 60000);
+    }
+
+    init();
+</script>
+
+</body>
+</html>
