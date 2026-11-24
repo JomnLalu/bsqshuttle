@@ -14,6 +14,11 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="BSQ Shuttle">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="BSQ Shuttle">
@@ -295,6 +300,7 @@
 
   <footer>
     <p>Unofficial student project. Not affiliated with Bina Nusantara. Times follow the published shuttle schedule and can change without notice.</p>
+    <p>Add this page to your home screen to open it like an app. It works offline.</p>
     <p>Made by <a href="https://jomontolalu.com/">jomontolalu</a></p>
   </footer>
 </main>
@@ -556,6 +562,12 @@
   }
 
   init();
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    });
+  }
 </script>
 </body>
 </html>
